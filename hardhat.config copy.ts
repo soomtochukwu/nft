@@ -6,20 +6,7 @@ require("dotenv").config();
 const config: HardhatUserConfig = {
   solidity: "0.8.19",
   networks: {
-    alfajores: {
-      url: "https://alfajores-forno.celo-testnet.org",
-    },
-    hardhat: {
-      chainId: 1337, // Replace with your desired chain ID
-    },
-    celo: {
-      url: "https://forno.celo.org",
-      accounts: {
-        mnemonic: process.env.MNEMONIC,
-        path: "m/44'/52752'/0'/0",
-      },
-      chainId: 42220,
-    },
+    // for testnet
     "lisk-sepolia": {
       url: "https://rpc.sepolia-api.lisk.com",
       accounts: [process.env.WALLET_KEY as string],
@@ -27,19 +14,11 @@ const config: HardhatUserConfig = {
     },
   },
   etherscan: {
+    // Use "123" as a placeholder, because Blockscout doesn't need a real API key, and Hardhat will complain if this property isn't set.
     apiKey: {
       "lisk-sepolia": "123",
-      alfajores: "empty",
     },
     customChains: [
-      {
-        network: "alfajores",
-        chainId: 44787,
-        urls: {
-          apiURL: "https://celo-alfajores.blockscout.com/api",
-          browserURL: "https://celo-alfajores.blockscout.com",
-        },
-      },
       {
         network: "lisk-sepolia",
         chainId: 4202,
@@ -49,6 +28,9 @@ const config: HardhatUserConfig = {
         },
       },
     ],
+  },
+  sourcify: {
+    enabled: false,
   },
 };
 

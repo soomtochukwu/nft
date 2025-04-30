@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract maziOfW3b_NFT is
+contract cMinth is
     ERC721,
     ERC721URIStorage,
     Pausable,
@@ -22,8 +22,9 @@ contract maziOfW3b_NFT is
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
+    event MINTH(address indexed owner, uint256 indexed Id);
 
-    constructor() ERC721("LISKP", "LSKP") EIP712("LISKP", "LSKP") {}
+    constructor() ERC721("cMINTH", "MTH") EIP712("cMINTH", "MTH") {}
 
     function pause() public onlyOwner {
         _pause();
@@ -33,11 +34,12 @@ contract maziOfW3b_NFT is
         _unpause();
     }
 
-    function safeMint(address to, string memory uri) public {
+    function safeMint(string memory uri) public {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
+        _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
+        emit MINTH(msg.sender, tokenId);
     }
 
     function _beforeTokenTransfer(

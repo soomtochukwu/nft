@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const nft = await ethers.deployContract("maziOfW3b_NFT");
+  const nft = await ethers.deployContract("cMinth");
 
   await nft.waitForDeployment();
 
