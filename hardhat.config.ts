@@ -8,17 +8,17 @@ const config: HardhatUserConfig = {
   networks: {
     alfajores: {
       url: "https://alfajores-forno.celo-testnet.org",
-    },
-    hardhat: {
-      chainId: 1337, // Replace with your desired chain ID
+      accounts: [process.env.WALLET_KEY as string],
+      gasPrice: 100000000000,
     },
     celo: {
       url: "https://forno.celo.org",
-      accounts: {
-        mnemonic: process.env.MNEMONIC,
-        path: "m/44'/52752'/0'/0",
-      },
+      accounts: [process.env.WALLET_KEY as string],
       chainId: 42220,
+      gasPrice: 100000000000,
+    },
+    hardhat: {
+      chainId: 1337, // Replace with your desired chain ID
     },
     "lisk-sepolia": {
       url: "https://rpc.sepolia-api.lisk.com",
@@ -28,8 +28,8 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      "lisk-sepolia": "123",
-      alfajores: "empty",
+      alfajores: process.env.ALFAJORESCAN_API_KEY || "",
+      celo: process.env.CELOSCAN_API_KEY || "",
     },
     customChains: [
       {
@@ -41,11 +41,11 @@ const config: HardhatUserConfig = {
         },
       },
       {
-        network: "lisk-sepolia",
-        chainId: 4202,
+        network: "celo",
+        chainId: 42220,
         urls: {
-          apiURL: "https://sepolia-blockscout.lisk.com/api",
-          browserURL: "https://sepolia-blockscout.lisk.com",
+          apiURL: "https://api.celoscan.io/api",
+          browserURL: "https://celoscan.io"
         },
       },
     ],
